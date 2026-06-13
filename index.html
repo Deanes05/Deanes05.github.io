@@ -1,45 +1,223 @@
-HTML
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First GitHub Website</title>
+    <title>My Creative Portfolio</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
-            color: #333;
+        /* Base Variables & Reset */
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #262626;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            --accent: #00adb5;
+        }
+        
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Header Section */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--accent);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        header .bio {
+            max-width: 600px;
+            margin: 20px auto 0 auto;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Portfolio Grid Layout */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--card-bg);
+            padding-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1max));
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        /* Project Cards */
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .project-fallback-img {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #333 0%, #444 100%);
+            display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            color: var(--text-muted);
+            font-weight: bold;
         }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
+        .project-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .project-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            align-self: flex-start;
+        }
+
+        .project-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        footer {
             text-align: center;
+            padding-top: 40px;
+            border-top: 2px solid var(--card-bg);
         }
-        h1 {
-            color: #24292e;
+
+        .contact-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            transition: color 0.2s;
         }
-        p {
-            color: #586069;
+
+        .contact-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Hello, World! 🚀</h1>
-        <p>Welcome to my first website hosted on GitHub Pages.</p>
-        <p>The 404 error is officially gone!</p>
+        
+        <!-- Introduction Header -->
+        <header>
+            <h1>Hi, I'm Deane 👋</h1>
+            <p>DIGITAL CREATOR & YOUR VIRTUAL ASSISTANT</p>
+            <p class="bio">Welcome to my space. I specialize in video editing, brand identity, and sata Management. Explore my latest projects below.</p>
+        </header>
+
+        <!-- Work/Projects Showcase Grid -->
+        <main>
+            <h2 class="section-title">Featured Work</h2>
+            <div class="portfolio-grid">
+                
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-fallback-img">VIDEO EDITING REEL</div>
+                    <div class="project-info">
+                        <h3>Creative Video Production</h3>
+                        <p>High-energy sequence modifications featuring custom keyframes, timing sync, and custom technical workflows built for maximum retention.</p>
+                        <a href="#" class="project-link">Watch Project →</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <div class="project-fallback-img">BRAND IDENTITY & LOGOS</div>
+                    <div class="project-info">
+                        <h3>Asset Asset & Concept Design</h3>
+                        <p>Line-art branding concepts, transparency treatments, and graphic assets optimized for digital content platforms and channels.</p>
+                        <a href="#" class="project-link">View Assets →</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <div class="project-fallback-img">OPEN SOURCE TECH</div>
+                    <div class="project-info">
+                        <h3>Web Projects & Automation</h3>
+                        <p>Clean front-end hosting and automated development setups deployed globally using open-source utilities and tools.</p>
+                        <a href="#" class="project-link">View Repository →</a>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Contact Options Footer -->
+        <footer>
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-links">
+                <a href="https://github.com/deanes05" target="_blank">GitHub</a>
+                <a href="mailto:your-email@example.com">Email</a>
+                <a href="#" target="_blank">Other Link</a>
+            </div>
+        </footer>
+
     </div>
 
 </body>
