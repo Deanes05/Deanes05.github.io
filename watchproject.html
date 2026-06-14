@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Video Production | Deane</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Exact same theme variables to keep your 10x aesthetic */
+        :root {
+            --bg-main: #0a0a0a;
+            --card-bg: #141414;
+            --text-main: #f8f9fa;
+            --text-muted: #a0aec0;
+            --border-light: rgba(255, 255, 255, 0.08);
+            --accent: #ff6b00;
+            --accent-glow: rgba(255, 107, 0, 0.4);
+            --accent-dim: rgba(255, 107, 0, 0.1);
+            --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+            --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1000px; /* Slightly narrower for easier reading */
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation Bar */
+        nav {
+            padding: 40px 0;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .back-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link::before { 
+            content: '←'; 
+            transition: transform 0.4s var(--ease-bounce); 
+        }
+        
+        .back-link:hover { color: var(--accent); }
+        .back-link:hover::before { transform: translateX(-8px); }
+
+        /* Project Header */
+        .project-header {
+            margin: 40px 0 60px 0;
+            animation: slideUpFade 1s var(--ease-apple) forwards;
+        }
+
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: var(--text-main);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .project-tag {
+            background: var(--accent-dim);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 0.8rem;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        /* Video/Image Showcase Area */
+        .media-showcase {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #111;
+            border-radius: 20px;
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            margin-bottom: 60px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: slideUpFade 1s var(--ease-apple) 0.2s forwards;
+            opacity: 0;
+        }
+
+        /* Project Description */
+        .project-details {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            animation: slideUpFade 1s var(--ease-apple) 0.4s forwards;
+            opacity: 0;
+        }
+
+        .project-details h2 {
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2rem;
+            margin: 40px 0 20px 0;
+        }
+
+        .project-details p { margin-bottom: 24px; }
+
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav>
+            <a href="index.html" class="back-link">Back to Portfolio</a>
+        </nav>
+
+        <header class="project-header">
+            <div class="project-tags">
+                <span class="project-tag">Video Editing</span>
+                <span class="project-tag">After Effects</span>
+            </div>
+            <h1>Creative Video Production</h1>
+        </header>
+
+        <div class="media-showcase">
+            [ YOUR VIDEO OR HIGH-RES IMAGE GOES HERE ]
+        </div>
+
+        <article class="project-details">
+            <h2>The Challenge</h2>
+            <p>Describe what the goal of this project was. For example: The client needed a high-energy promotional video to launch their new product line on TikTok and Instagram Reels within a tight deadline.</p>
+            
+            <h2>The Solution</h2>
+            <p>Explain how you solved it. I utilized custom keyframes in After Effects to create seamless transitions, paired with a heavy bass-boosted audio mix. I color-graded the footage to match their brand identity, resulting in a vibrant, engaging final asset.</p>
+        </article>
+        
+        <div style="padding-bottom: 100px;"></div>
+    </div>
+
+</body>
+</html>
