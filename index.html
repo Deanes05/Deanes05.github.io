@@ -1,67 +1,229 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Paperclip Resume</title>
-    <link rel="stylesheet" href="style.css">
-       
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimalist Portfolio Template</title>
+  <style>
+    :root {
+      /* Base Colors (60% Orange, 30% Dark, 10% White) */
+      --color-orange: #E67E22;
+      --color-dark: #2C3E50;
+      --color-white: #FFFFFF;
+
+      /* Light Mode (Default) variables */
+      --bg-color: var(--color-orange);
+      --main-text-color: var(--color-dark);
+      --heading-text-color: var(--color-dark);
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.3);
+      --glass-text: var(--color-dark);
+      --accent: var(--color-white);
+
+      /* Global Styles */
+      --transition-speed: 0.3s;
+    }
+
+    body.night-mode {
+      /* Night Mode override variables */
+      --bg-color: var(--color-dark);
+      --main-text-color: var(--color-orange);
+      --heading-text-color: var(--color-orange);
+      --glass-bg: rgba(0, 0, 0, 0.3);
+      --glass-border: rgba(0, 0, 0, 0.5);
+      --glass-text: var(--color-white);
+      --accent: var(--color-orange);
+    }
+
+    /* Standard Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--main-text-color);
+      transition: background-color var(--transition-speed) ease;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      text-transform: uppercase;
+      color: var(--heading-text-color);
+      letter-spacing: -2px;
+      line-height: 1.0;
+    }
+    h1 { font-size: 5rem; font-weight: 800; margin-bottom: 20px; }
+    h2 { font-size: 4rem; font-weight: 700; margin-bottom: 30px; }
+    p { font-size: 1rem; margin-bottom: 20px; color: var(--main-text-color); }
+    a { text-decoration: none; color: inherit; transition: color var(--transition-speed) ease; }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--glass-text);
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 50px;
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+      transition: background var(--transition-speed);
+    }
+    .theme-toggle:hover { background: rgba(0, 0, 0, 0.1); }
+
+    /* --- Sections --- */
+    section { padding: 80px 20px; text-align: center; }
+
+    /* 1. Intro Section (Hero) */
+    #hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      background-color: var(--bg-color);
+    }
+    .hero-image {
+      position: relative;
+      width: 300px;
+      height: 400px;
+      overflow: hidden;
+      margin-bottom: 40px;
+      /* Placeholders will be colored white or orange for visibility */
+      background: var(--color-white);
+      z-index: 10;
+    }
+    .hero-image img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-text-overlay {
+      position: absolute;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 7rem;
+      color: var(--heading-text-color);
+      font-weight: 900;
+      letter-spacing: -5px;
+      z-index: 5;
+      text-transform: uppercase;
+      width: 100%;
+      opacity: 0.15;
+    }
+    #hero p { max-width: 600px; }
+    #hero strong { font-weight: 700; color: var(--heading-text-color); }
+
+    /* 2. Glass Squares Row (Skills/Projects) */
+    #glass-squares {
+      background-color: var(--color-orange); /* Use primary for contrast */
+      background: linear-gradient(to right, var(--color-orange), #ff9f43);
+    }
+    body.night-mode #glass-squares {
+      background: linear-gradient(to right, var(--color-dark), #1a252f);
+    }
+    .glass-row {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+    .glass-card {
+      width: 250px;
+      height: 250px;
+      padding: 30px;
+      border-radius: 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+      z-index: 1;
+    }
+    .glass-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    .glass-card h3 { font-size: 1.5rem; color: var(--glass-text); text-transform: uppercase; margin-bottom: 15px; }
+    .glass-card p { font-size: 0.9rem; color: var(--glass-text); opacity: 0.8; margin-bottom: 0; }
+    .glass-card-accent { width: 100%; height: 5px; background-color: var(--accent); margin-top: auto; }
+
+    /* --- Footer --- */
+    footer {
+      padding: 50px 20px;
+      background-color: var(--color-dark);
+      color: var(--color-white);
+      text-align: center;
+    }
+    footer a:hover { color: var(--color-orange); }
+    .social-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; }
+    .social-links a { font-weight: 600; text-transform: uppercase; font-size: 1.1rem; }
+    .footer-message { opacity: 0.7; font-size: 0.9rem; }
+
+  </style>
 </head>
-<body>
+<body class="light-mode">
 
-    <div class="document-wrapper">
-        <div class="paperclip">📎</div>
+  <button class="theme-toggle" id="mode-toggle">Night Mode</button>
 
-        <div class="page-bottom">
-            <h2 class="highlight-title">Work Experiences</h2>
-            <p><strong>Sep 2022 - Present</strong><br>Motion Graphic & UI Designer</p>
-            <p><strong>Jun 2022 - Aug 2022</strong><br>Motion Graphic & UI Designer - Internship</p>
-            <button class="btn-flip" onclick="unflipPage()">Turn Back</button>
-        </div>
-
-        <div class="flipper-sheet" id="pageFlipper">
-            
-            <div class="face front">
-                <div class="header">
-                    <div class="photo-placeholder"></div>
-                    <div>
-                        <h1>Aravindh A</h1>
-                        <p>I do creative motion graphics from scratch designing to animation assets.</p>
-                        <ul style="list-style-type: none; padding: 0;">
-                            <li><strong>DOB:</strong> 23.01.2001</li>
-                            <li><strong>LOC:</strong> Thanjavur</li>
-                        </ul>
-                    </div>
-                </div>
-                
-                <div class="handwritten">
-                    Please don't hesitate to reach me if this resume doesn't provide enough clarification!
-                </div>
-
-                <button class="btn-flip" onclick="flipPage()">Click to Flip Page</button>
-            </div>
-
-            <div class="face back">
-                <h2>Page 2 / Notes</h2>
-                <p>This is the physical back side of the cover page.</p>
-            </div>
-
-        </div>
+  <section id="hero">
+    <div class="hero-text-overlay">PORTFOLIO</div>
+    <div class="hero-image">
+      <img src="https://via.placeholder.com/300x400/E67E22/2C3E50?text=IMAGE+1" alt="Profile image placeholder">
     </div>
+    <p>
+      <strong>SEBASTIAN BENNETT</strong><br>
+      LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT, SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA.
+    </p>
+  </section>
 
-    <script>
-        const flipper = document.getElementById('pageFlipper');
+  <section id="glass-squares">
+    <h2>WHO I AM</h2>
+    <div class="glass-row">
+      <div class="glass-card">
+        <h3>DESIGN</h3>
+        <p>Expertise in digital interface & visual design. Crafting experiences with minimal aesthetics.</p>
+        <div class="glass-card-accent"></div>
+      </div>
+      <div class="glass-card">
+        <h3>CODE</h3>
+        <p>Developing responsive layouts and interaction with HTML, CSS, JavaScript, and modern frameworks.</p>
+        <div class="glass-card-accent"></div>
+      </div>
+      <div class="glass-card">
+        <h3>STRATEGY</h3>
+        <p>Analytic and collaborative approach to solving design problems with impactful solutions.</p>
+        <div class="glass-card-accent"></div>
+      </div>
+    </div>
+  </section>
 
-        function flipPage() {
-            // Adds the CSS class that triggers the 180-degree rotation
-            flipper.classList.add('is-flipped');
-        }
+  <footer>
+    <div class="social-links">
+      <a href="#">Github</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Behance</a>
+      <a href="#">Medium</a>
+    </div>
+    <p class="footer-message">Created with love.</p>
+  </footer>
 
-        function unflipPage() {
-            // Removes the class to rotate it back to 0 degrees
-            flipper.classList.remove('is-flipped');
-        }
-    </script>
+  <script>
+    const body = document.body;
+    const modeToggleBtn = document.getElementById('mode-toggle');
+
+    modeToggleBtn.addEventListener('click', () => {
+      body.classList.toggle('night-mode');
+      if (body.classList.contains('night-mode')) {
+        modeToggleBtn.textContent = 'Light Mode';
+      } else {
+        modeToggleBtn.textContent = 'Night Mode';
+      }
+    });
+  </script>
 
 </body>
 </html>
