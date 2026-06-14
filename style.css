@@ -299,7 +299,7 @@ h1:hover {
 
 .project-link:hover {
     gap: 12px;
-    text-shadow: 0 0 8px rgba(0, 173, 181, 0.4); /* Subtle text glow */
+    text-shadow: 0 0 8px rgba(255, 107, 0, 0.4); /* Orange text glow */
 }
 
 .project-link:hover::after {
