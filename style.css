@@ -21,6 +21,68 @@ h1:hover {
     transform: translateY(-2px) scale(1.02);
 }
 
+/* ====================== PORTRAIT INTEGRATION ====================== */
+.portrait-container {
+    width: 100%;
+    max-width: 450px;
+    aspect-ratio: 4/5;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* The Image Itself */
+.portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+    /* Desaturates the image slightly to let the orange overlay take over */
+    filter: contrast(1.1) brightness(0.9) grayscale(30%);
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+}
+
+/* 1. The Orange Cinematic Overlay (Mix Blend Mode) */
+.portrait-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Gradient from transparent orange to deep theme orange */
+    background: linear-gradient(
+        to bottom, 
+        rgba(255, 107, 0, 0.1) 0%, 
+        rgba(255, 107, 0, 0.5) 100%
+    );
+    /* This forces the orange to perfectly blend into the shadows of your photo */
+    mix-blend-mode: multiply; 
+    z-index: 2;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+
+/* 2. Edge Fading (Vignette Effect) */
+.portrait-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    /* Fades the sharp edges of the photo directly into the black background */
+    box-shadow: inset 0 0 50px 10px var(--bg-color); 
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* 3. Hover Interaction */
+.portrait-container:hover .portrait-img {
+    transform: scale(1.05); /* Slight zoom */
+    filter: contrast(1.1) brightness(1) grayscale(0%); /* Brings back original color */
+}
+
+.portrait-container:hover::after {
+    opacity: 0.3; /* Reduces the heavy orange tint slightly so they can see you clearly */
+}
+
 /* ====================== PORTFOLIO SECTION ====================== */
 .section-title {
     font-size: clamp(1.8rem, 4vw, 2.2rem);
