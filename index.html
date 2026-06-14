@@ -3,387 +3,324 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Premium Minimalist Portfolio</title>
+  <title>Deanes Portfolio</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      /* Core Palette */
-      --color-accent: #E67E22;
-      --color-accent-hover: #d67118;
+      /* 60-30-10 Rule */
+      --primary-orange: #ff8c00;
+      --bg-dark: #121212;
+      --accent-white: #ffffff;
       
-      /* Light Mode (Default) */
-      --bg-primary: #F4F4F5;
-      --bg-secondary: #FFFFFF;
-      --text-main: #18181B;
-      --text-muted: #52525B;
-      --glass-bg: rgba(255, 255, 255, 0.6);
-      --glass-border: rgba(255, 255, 255, 0.8);
-      --glass-shadow: rgba(0, 0, 0, 0.05);
-
-      /* Layout & Timing */
-      --transition-speed: 0.4s;
-      --border-radius: 24px;
+      /* Light Theme (Default) */
+      --bg-color: var(--primary-orange);
+      --text-main: var(--bg-dark);
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-border: rgba(255, 255, 255, 0.25);
+      --glass-highlight: rgba(255, 255, 255, 0.5);
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --selection-bg: var(--bg-dark);
+      --selection-text: var(--primary-orange);
     }
 
     body.night-mode {
-      /* Dark Mode Overrides */
-      --bg-primary: #09090B;
-      --bg-secondary: #18181B;
-      --text-main: #FAFAFA;
-      --text-muted: #A1A1AA;
-      --glass-bg: rgba(24, 24, 27, 0.6);
+      /* Dark Theme */
+      --bg-color: var(--bg-dark);
+      --text-main: var(--accent-white);
+      --glass-bg: rgba(25, 25, 25, 0.4);
       --glass-border: rgba(255, 255, 255, 0.08);
-      --glass-shadow: rgba(0, 0, 0, 0.4);
+      --glass-highlight: rgba(255, 255, 255, 0.15);
+      --shadow-color: rgba(0, 0, 0, 0.4);
+      --selection-bg: var(--primary-orange);
+      --selection-text: var(--bg-dark);
     }
 
-    /* --- Reset & Base --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    
+    /* Base & Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Space Grotesk', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
     html { scroll-behavior: smooth; }
-    
+
+    ::selection {
+      background: var(--selection-bg);
+      color: var(--selection-text);
+    }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--bg-color); }
+    ::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-main); }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: var(--bg-primary);
+      background-color: var(--bg-color);
       color: var(--text-main);
-      transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-      line-height: 1.6;
+      transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+                  color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       overflow-x: hidden;
     }
 
-    /* Typography */
-    h1, h2, h3, .hero-bg-text {
-      font-family: 'Syne', sans-serif;
-      color: var(--text-main);
-      line-height: 1.1;
-    }
-    
-    h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; letter-spacing: -0.03em; }
-    h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; margin-bottom: 3rem; letter-spacing: -0.02em; }
-    p { font-size: 1.125rem; color: var(--text-muted); }
-    a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
-
-    /* --- Navigation & Toggle --- */
-    nav {
+    /* --- Top Navigation (Bootstrap Style) --- */
+    .top-nav {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
-      padding: 1.5rem 5%;
+      padding: 1rem 5%;
       display: flex;
-      justify-content: flex-end;
-      z-index: 100;
-      mix-blend-mode: difference; /* Makes it visible on any background */
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: var(--glass-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border);
+      transition: background 0.6s ease, border-color 0.6s ease;
     }
 
-    .theme-toggle {
-      background: transparent;
-      border: 2px solid #fff;
-      color: #fff;
-      padding: 0.6rem 1.5rem;
-      font-family: 'Inter', sans-serif;
+    .nav-brand {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -1px;
+      text-decoration: none;
+      color: var(--text-main);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-link {
       font-weight: 500;
-      font-size: 0.9rem;
-      cursor: pointer;
-      border-radius: 50px;
-      transition: all 0.3s ease;
       text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .theme-toggle:hover {
-      background: #fff;
-      color: #000;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      color: var(--text-main);
+      text-decoration: none;
+      position: relative;
     }
 
-    /* --- Layout Container --- */
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 5%;
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0; width: 100%; height: 2px;
+      background-color: var(--text-main);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
     }
+
+    .nav-link:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* --- Theme Toggle Icon --- */
+    .theme-toggle-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
+    }
+
+    .theme-toggle-btn:hover {
+      background: var(--glass-border);
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    /* CSS logic to swap icons instantly without JS flashing */
+    body.light-mode .icon-sun { display: none; }
+    body.light-mode .icon-moon { display: block; }
+    body.night-mode .icon-sun { display: block; }
+    body.night-mode .icon-moon { display: none; }
 
     /* --- Hero Section --- */
-    #hero {
-      position: relative;
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+    .hero-container {
+      display: flex;
       align-items: center;
-      gap: 4rem;
-      padding-top: 5rem;
-    }
-
-    .hero-bg-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 18vw;
-      font-weight: 800;
-      color: var(--text-main);
-      opacity: 0.03;
-      white-space: nowrap;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .hero-content {
+      justify-content: center;
+      min-height: 100vh;
+      padding: 6rem 2rem 2rem; /* Added top padding to account for fixed nav */
       position: relative;
-      z-index: 10;
-    }
-
-    .hero-content p {
-      margin-top: 1.5rem;
-      max-width: 450px;
-      font-size: 1.25rem;
-    }
-
-    .hero-content strong {
-      color: var(--color-accent);
-      display: block;
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
     }
 
     .hero-image-wrapper {
       position: relative;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      animation: float 6s ease-in-out infinite;
       z-index: 10;
-      aspect-ratio: 4/5;
-      border-radius: var(--border-radius);
-      overflow: hidden;
-      box-shadow: 0 20px 40px var(--glass-shadow);
     }
 
     .hero-image-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.7s ease;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px var(--shadow-color);
+      max-width: 100%;
+      height: auto;
     }
 
-    .hero-image-wrapper:hover img {
-      transform: scale(1.05);
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
     }
 
-    /* --- Glass Squares Section --- */
-    #expertise {
-      padding: 8rem 0;
-      position: relative;
+    .letter-behind {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(8rem, 20vw, 15rem);
+      font-weight: 800;
+      color: var(--text-main);
+      z-index: 0;
+      opacity: 0.05;
+      user-select: none;
+      pointer-events: none;
     }
 
-    .glass-grid {
+    /* --- Skills Section --- */
+    .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+      padding: 5rem 10%;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    .glass-card {
-      position: relative;
-      padding: 3rem 2rem;
-      border-radius: var(--border-radius);
+    .glass-panel {
       background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      box-shadow: 0 10px 30px var(--glass-shadow);
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
-      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      border-top: 1px solid var(--glass-highlight);
+      border-left: 1px solid var(--glass-highlight);
+      border-radius: 24px;
+      box-shadow: 0 16px 40px 0 var(--shadow-color);
+      padding: 2.5rem 2rem;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                  box-shadow 0.4s ease, border-color 0.4s ease;
+      cursor: pointer;
     }
 
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 4px;
-      background: var(--color-accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
+    .glass-panel:hover {
+      transform: translateY(-10px) scale(1.03);
+      border-color: var(--text-main);
+      box-shadow: 0 25px 50px 0 var(--shadow-color);
     }
 
-    .glass-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px var(--glass-shadow);
-      border-color: var(--color-accent);
-    }
-
-    .glass-card:hover::before {
-      transform: scaleX(1);
-    }
-
-    .glass-card h3 {
+    .glass-panel h3 {
       font-size: 1.5rem;
+      margin-bottom: 1rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
     /* --- Footer --- */
     footer {
-      padding: 4rem 5%;
-      background-color: var(--bg-secondary);
+      text-align: center;
+      padding: 3rem 2rem;
       border-top: 1px solid var(--glass-border);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
-    }
-
-    .social-links {
-      display: flex;
-      gap: 2.5rem;
-    }
-
-    .social-links a {
-      font-weight: 500;
-      text-transform: uppercase;
       font-size: 0.9rem;
-      letter-spacing: 1px;
-      position: relative;
+      opacity: 0.8;
     }
 
-    .social-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px; left: 0; width: 100%; height: 2px;
-      background-color: var(--color-accent);
-      transform: scaleX(0);
-      transform-origin: right;
-      transition: transform 0.3s ease;
-    }
-
-    .social-links a:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
-    }
-
-    .footer-message {
-      font-size: 0.875rem;
-    }
-
-    /* --- Animations (Scroll Reveal) --- */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* --- Responsive Design --- */
-    @media (max-width: 900px) {
-      #hero {
-        grid-template-columns: 1fr;
-        text-align: center;
-        padding-top: 8rem;
+    /* --- Responsive Mobile Tweaks --- */
+    @media (max-width: 768px) {
+      .nav-link {
+        display: none; /* Hides text links on mobile to keep navbar clean */
       }
-      .hero-content p {
-        margin: 1.5rem auto 0;
-      }
-      .hero-image-wrapper {
-        max-width: 400px;
-        margin: 0 auto;
-      }
-      .theme-toggle {
-        mix-blend-mode: normal;
-        background: var(--text-main);
-        color: var(--bg-primary);
-        border: none;
+      .nav-menu {
+        gap: 1rem;
       }
     }
   </style>
 </head>
 <body class="light-mode">
 
-  <nav>
-    <button class="theme-toggle" id="mode-toggle">Night Mode</button>
+  <nav class="top-nav">
+    <a href="#" class="nav-brand">SB.</a>
+    
+    <div class="nav-menu">
+      <a href="#" class="nav-link">Github</a>
+      <a href="#" class="nav-link">LinkedIn</a>
+      <a href="#" class="nav-link">Behance</a>
+      
+      <button class="theme-toggle-btn" id="mode-toggle" aria-label="Toggle Night Mode">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+      </button>
+    </div>
   </nav>
 
-  <main class="container">
-    <section id="hero">
-      <div class="hero-bg-text">PORTFOLIO</div>
-      
-      <div class="hero-content reveal">
-        <h1>Digital<br>Designer.</h1>
-        <p>
-          <strong>Sebastian Bennett</strong>
-          I craft digital experiences with a focus on minimal aesthetics, seamless interactions, and purposeful design logic.
-        </p>
-      </div>
-
-      <div class="hero-image-wrapper reveal">
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1000&auto=format&fit=crop" alt="Abstract modern art placeholder">
+  <main>
+    <section class="hero-container">
+      <div class="letter-behind">DESIGN</div>
+      <div class="hero-image-wrapper">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" alt="Abstract modern art placeholder">
       </div>
     </section>
 
-    <section id="expertise">
-      <h2 class="reveal">Who I Am</h2>
+    <section class="skills-grid">
+      <div class="glass-panel">
+        <h3>Design</h3>
+        <p>Expertise in digital interface & visual design. Crafting experiences with minimal aesthetics and maximum utility.</p>
+      </div>
       
-      <div class="glass-grid">
-        <div class="glass-card reveal">
-          <h3>Design</h3>
-          <p>Expertise in digital interface & visual design. Crafting experiences with minimal aesthetics and maximum utility.</p>
-        </div>
-        
-        <div class="glass-card reveal" style="transition-delay: 0.1s;">
-          <h3>Code</h3>
-          <p>Developing responsive layouts and fluid interactions utilizing modern HTML, CSS, JavaScript, and dynamic frameworks.</p>
-        </div>
-        
-        <div class="glass-card reveal" style="transition-delay: 0.2s;">
-          <h3>Strategy</h3>
-          <p>An analytic and collaborative approach to solving complex design problems with high-impact, sustainable solutions.</p>
-        </div>
+      <div class="glass-panel">
+        <h3>Code</h3>
+        <p>Developing responsive layouts and fluid interactions utilizing modern HTML, CSS, JavaScript, and dynamic frameworks.</p>
+      </div>
+      
+      <div class="glass-panel">
+        <h3>Strategy</h3>
+        <p>An analytic and collaborative approach to solving complex design problems with high-impact, sustainable solutions.</p>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="social-links">
-      <a href="#">Github</a>
-      <a href="#">LinkedIn</a>
-      <a href="#">Behance</a>
-      <a href="#">Medium</a>
-    </div>
-    <p class="footer-message text-muted">© 2026 Sebastian Bennett. Crafted with intention.</p>
+    <p>© 2026 Deanes . Crafted with passion.</p>
   </footer>
 
   <script>
-    // 1. Theme Toggle Logic
+    // Theme Toggle Logic
     const body = document.body;
     const modeToggleBtn = document.getElementById('mode-toggle');
 
     modeToggleBtn.addEventListener('click', () => {
+      // Toggle both classes to ensure the CSS targeted display block/none works instantly
       body.classList.toggle('night-mode');
-      if (body.classList.contains('night-mode')) {
-        modeToggleBtn.textContent = 'Light Mode';
-      } else {
-        modeToggleBtn.textContent = 'Night Mode';
-      }
+      body.classList.toggle('light-mode');
     });
-
-    // 2. Scroll Reveal Animation Logic
-    function reveal() {
-      var reveals = document.querySelectorAll(".reveal");
-      for (var i = 0; i < reveals.length; i++) {
-        var windowHeight = window.innerHeight;
-        var elementTop = reveals[i].getBoundingClientRect().top;
-        var elementVisible = 100; // Trigger point
-
-        if (elementTop < windowHeight - elementVisible) {
-          reveals[i].classList.add("active");
-        }
-      }
-    }
-
-    // Trigger once on load, then on scroll
-    window.addEventListener("scroll", reveal);
-    reveal(); 
   </script>
 
 </body>
