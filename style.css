@@ -331,3 +331,17 @@ h1:hover {
     outline-offset: 6px;
     border-radius: 24px;
 }
+
+/* Styles for the new project image */
+.project-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image fills the box without stretching */
+    transition: transform 0.8s var(--ease-apple);
+    will-change: transform;
+}
+
+/* Keeps the smooth zoom and tilt effect on hover */
+.project-card:hover .project-img {
+    transform: scale(1.08) rotate(1deg);
+}
