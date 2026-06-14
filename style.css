@@ -1,70 +1,112 @@
+/* ====================== TYPOGRAPHY ====================== */
 h1 {
-  font-family: 'Montserrat', sans-serif; /* or Montserrat, etc. */
-  font-weight: 900;
-  font-size: 5rem;
-  color: #ff3366; /* main color */
-  text-shadow: 
-    1px 1px 0 #ccc,
-    2px 2px 0 #bbb,
-    3px 3px 0 #aaa,
-    4px 4px 0 #999,
-    5px 5px 0 #888,
-    6px 6px 10px rgba(0, 0, 0, 0.5); /* soft drop shadow */
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3rem, 8vw, 5rem); /* Responsive fluid sizing */
+    color: #ff3366; 
+    letter-spacing: -1px;
+    /* Upgraded 3D Shadow: Uses deeper shades of the main color instead of flat grays */
+    text-shadow: 
+        1px 1px 0 #d61c4e,
+        2px 2px 0 #b0123d,
+        3px 3px 0 #8c092c,
+        4px 4px 0 #69001c,
+        5px 5px 0 #4a0011,
+        8px 8px 15px rgba(255, 51, 102, 0.4), /* Colored ambient glow */
+        12px 12px 20px rgba(0, 0, 0, 0.6); /* Deep drop shadow */
+    transition: transform 0.3s ease;
+}
+
+h1:hover {
+    transform: translateY(-2px) scale(1.02);
 }
 
 /* ====================== PORTFOLIO SECTION ====================== */
 .section-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 40px;
+    font-size: clamp(1.8rem, 4vw, 2.2rem);
+    font-weight: 800;
+    margin-bottom: 50px;
     color: var(--text-main);
     position: relative;
     display: inline-block;
+    letter-spacing: -0.5px;
 }
 
 .section-title::after {
     content: '';
     position: absolute;
-    bottom: -8px;
+    bottom: -10px;
     left: 0;
-    width: 60px;
+    width: 40px; /* Starts small */
     height: 4px;
-    background: var(--accent);
-    border-radius: 2px;
+    background: linear-gradient(90deg, #ff3366, var(--accent)); /* Gradient underline */
+    border-radius: 4px;
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.section-title:hover::after {
+    width: 100%; /* Expands gracefully on hover */
 }
 
 /* ====================== PORTFOLIO GRID ====================== */
 .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
+    gap: 35px; /* Slightly more breathing room */
     margin-bottom: 80px;
 }
 
 /* ====================== PROJECT CARD ====================== */
 .project-card {
     background-color: var(--card-bg);
-    border-radius: 16px;
+    border-radius: 20px; /* Slightly softer corners */
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Apple-style easing */
     display: flex;
     flex-direction: column;
     height: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    z-index: 1;
+}
+
+/* The Shine Effect (Hidden by default) */
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.05) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: skewX(-25deg);
+    transition: left 0.7s ease;
+    z-index: 2;
+    pointer-events: none;
 }
 
 .project-card:hover {
     transform: translateY(-12px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    border-color: var(--accent);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 0 1px var(--accent); /* Replaces border-color for a crisper glow */
+}
+
+.project-card:hover::before {
+    left: 200%; /* Triggers the sweep animation */
 }
 
 /* Image Container */
 .project-image-container {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 220px; /* Slightly taller for better framing */
     overflow: hidden;
 }
 
@@ -72,104 +114,137 @@ h1 {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .project-card:hover .project-image {
-    transform: scale(1.08);
+    transform: scale(1.08) rotate(1deg); /* Added a micro-rotation */
+}
+
+/* Cinematic Overlay */
+.project-image-container::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.8) 100%
+    );
+    opacity: 0.6; /* Always slightly visible to make text pop if added later */
+    transition: opacity 0.4s ease;
+    z-index: 1;
+}
+
+.project-card:hover .project-image-container::after {
+    opacity: 0.2; /* Lightens up on hover to reveal the image */
 }
 
 /* Fallback Image */
 .project-fallback-img {
     width: 100%;
-    height: 200px;
-    background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+    height: 100%;
+    background: linear-gradient(135deg, #2a2a2a 0%, #171717 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-/* Overlay on hover */
-.project-image-container::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.project-card:hover .project-image-container::after {
-    opacity: 1;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
 /* Project Info */
 .project-info {
-    padding: 24px;
+    padding: 30px 25px; /* Better padding hierarchy */
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
+    z-index: 3;
 }
 
 .project-info h3 {
     margin: 0 0 12px 0;
-    font-size: 1.35rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    font-weight: 700;
     color: var(--text-main);
     line-height: 1.3;
+    transition: color 0.3s ease;
+}
+
+.project-card:hover .project-info h3 {
+    color: var(--accent); /* Header highlights when card is hovered */
 }
 
 .project-info p {
     color: var(--text-muted);
     font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
+    line-height: 1.7; /* Better readability */
+    margin-bottom: 25px;
     flex-grow: 1;
 }
 
-/* Tags */
+/* Glassmorphism Tags */
 .project-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 18px;
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
 .project-tag {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(4px); /* Glass effect */
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e0e0e0;
+    font-size: 0.75rem;
+    padding: 6px 14px;
+    border-radius: 30px; /* Pill shape */
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.project-card:hover .project-tag {
+    border-color: rgba(255, 255, 255, 0.2);
     background: rgba(255, 255, 255, 0.08);
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-weight: 500;
 }
 
 /* Link Button */
 .project-link {
     color: var(--accent);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.95rem;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     align-self: flex-start;
-    transition: all 0.3s ease;
-}
-
-.project-link:hover {
-    gap: 10px;
-    color: var(--accent-hover, var(--accent));
+    padding: 8px 0;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .project-link::after {
     content: '→';
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.project-link:hover {
+    gap: 12px;
+    text-shadow: 0 0 8px rgba(0, 173, 181, 0.4); /* Subtle text glow */
 }
 
 .project-link:hover::after {
-    transform: translateX(4px);
+    transform: translateX(6px);
+}
+
+/* Accessibility Focus States */
+.project-link:focus-visible, 
+.project-card:focus-visible {
+    outline: 2px dashed var(--accent);
+    outline-offset: 4px;
 }
