@@ -5,15 +5,15 @@ h1 {
     font-size: clamp(3rem, 8vw, 5rem); /* Responsive fluid sizing */
     color: #ff3366; 
     letter-spacing: -1px;
-    /* Upgraded 3D Shadow: Uses deeper shades of the main color instead of flat grays */
+/* New 3D Shadow: Deep Oranges into Burnt Browns */
     text-shadow: 
-        1px 1px 0 #d61c4e,
-        2px 2px 0 #b0123d,
-        3px 3px 0 #8c092c,
-        4px 4px 0 #69001c,
-        5px 5px 0 #4a0011,
-        8px 8px 15px rgba(255, 51, 102, 0.4), /* Colored ambient glow */
-        12px 12px 20px rgba(0, 0, 0, 0.6); /* Deep drop shadow */
+        1px 1px 0 #ff6b00,
+        2px 2px 0 #e65c00,
+        3px 3px 0 #cc5200,
+        4px 4px 0 #b34700,
+        5px 5px 0 #993d00,
+        8px 8px 15px rgba(255, 107, 0, 0.4), /* Orange ambient glow */
+        12px 12px 20px rgba(0, 0, 0, 0.8); /* Deep drop shadow */
     transition: transform 0.3s ease;
 }
 
@@ -37,9 +37,10 @@ h1:hover {
     position: absolute;
     bottom: -10px;
     left: 0;
-    width: 40px; /* Starts small */
+    width: 40px;
     height: 4px;
-    background: linear-gradient(90deg, #ff3366, var(--accent)); /* Gradient underline */
+    /* Updated gradient: Orange to a slightly lighter orange */
+    background: linear-gradient(90deg, var(--accent), #ff8c33); 
     border-radius: 4px;
     transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -195,14 +196,14 @@ h1:hover {
 }
 
 .project-tag {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(4px); /* Glass effect */
+    background: rgba(255, 255, 255, 0.05); /* Very subtle white tint */
+    backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.15); /* 30% White integration */
+    color: var(--text-main);
     font-size: 0.75rem;
     padding: 6px 14px;
-    border-radius: 30px; /* Pill shape */
+    border-radius: 30px;
     font-weight: 600;
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -210,8 +211,9 @@ h1:hover {
 }
 
 .project-card:hover .project-tag {
-    border-color: rgba(255, 255, 255, 0.2);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent); /* Lights up orange on hover */
+    background: rgba(255, 107, 0, 0.1); /* Very subtle orange background */
+    color: var(--accent);
 }
 
 /* Link Button */
