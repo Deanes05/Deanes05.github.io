@@ -4,101 +4,206 @@
 :root {
   /* 60-30-10 Rule: Orange (60), Dark (30), White (10) */
   --primary-orange: #ff8c00;
-  --bg-dark: #1a1a1a;
+  --bg-dark: #121212; /* Slightly deeper than #1a1a1a for better contrast */
   --accent-white: #ffffff;
   
+  /* Light Theme (Default) */
   --bg-color: var(--primary-orange);
   --text-main: var(--bg-dark);
-  --glass-bg: rgba(255, 255, 255, 0.1);
-  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-highlight: rgba(255, 255, 255, 0.5); /* For directional lighting */
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --selection-bg: var(--bg-dark);
+  --selection-text: var(--primary-orange);
 }
 
 body.night-mode {
+  /* Dark Theme */
   --bg-color: var(--bg-dark);
   --text-main: var(--accent-white);
-  --glass-bg: rgba(0, 0, 0, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(25, 25, 25, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.15);
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --selection-bg: var(--primary-orange);
+  --selection-text: var(--bg-dark);
 }
 
+/* Base & Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased; /* Crisper text rendering */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Highlight Selection */
+::selection {
+  background: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* Custom Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-main);
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--text-main);
-  transition: all 0.5s ease;
+  /* Targeted transitions instead of 'all' for smooth 60fps performance */
+  transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-x: hidden;
+  position: relative;
 }
 
-/* Glassmorphism Effect */
+/* Optional: Subtle background noise/gradient for the 60% Orange to make it less blinding */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* --- Premium Glassmorphism Effect --- */
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  /* Inner borders simulate light hitting the top-left edge of the glass */
   border: 1px solid var(--glass-border);
+  border-top: 1px solid var(--glass-highlight);
+  border-left: 1px solid var(--glass-highlight);
   border-radius: 24px;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 16px 40px 0 var(--shadow-color);
+  overflow: hidden;
 }
 
-/* Hero Section Enhancement */
+/* --- Hero Section Enhancement --- */
 .hero-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  min-height: 100vh;
   padding: 2rem;
+  position: relative;
 }
 
 .hero-image-wrapper {
   position: relative;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: float 6s ease-in-out infinite; /* Adds subtle organic movement */
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
 /* Floating "Letter Behind" Effect */
 .letter-behind {
   position: absolute;
-  top: -20px;
-  left: -20px;
-  font-size: 10rem;
+  top: -5%;
+  left: -10%;
+  /* Fluid typography: scales perfectly between mobile and desktop */
+  font-size: clamp(8rem, 20vw, 15rem);
   font-weight: 800;
   color: var(--accent-white);
   z-index: -1;
-  opacity: 0.3;
+  opacity: 0.15;
+  user-select: none; /* Prevents ugly blue highlighting if user clicks */
+  pointer-events: none; /* Allows clicking elements *through* the letter */
+  mix-blend-mode: overlay; /* Creates a beautiful color blend with the background */
 }
 
-/* Hover-Zoom Glass Squares */
+/* --- Hover-Zoom Glass Squares --- */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  padding: 4rem 10%;
+  gap: 2.5rem;
+  padding: 5rem 10%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .skill-card {
-  padding: 2rem;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  padding: 2.5rem 2rem;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              box-shadow 0.4s ease,
+              border-color 0.4s ease;
+  cursor: pointer;
 }
 
 .skill-card:hover {
-  transform: translateY(-15px) scale(1.02);
+  transform: translateY(-10px) scale(1.03);
   border-color: var(--accent-white);
+  box-shadow: 0 25px 50px 0 var(--shadow-color);
 }
 
-/* Footer Links */
+/* --- Footer Links --- */
 footer {
   text-align: center;
-  padding: 3rem;
+  padding: 4rem 2rem;
   border-top: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .footer-link {
-  margin: 0 1rem;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   cursor: pointer;
   text-transform: uppercase;
+  font-size: 0.9rem;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s ease;
+}
+
+/* Animated Underline for Links */
+.footer-link::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -6px;
+  left: 0;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.footer-link:hover {
+  opacity: 0.8;
+}
+
+.footer-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
