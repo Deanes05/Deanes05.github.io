@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deane | Digital Creator & VA</title>
+    <title>Deane | Digital Creator</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* Base Variables & Reset - Upgraded Palette */
+        /* ====================== THEME VARIABLES (60-30-10 Rule) ====================== */
         :root {
-            --bg-color: #0a0a0a; /* Deep modern dark background */
-            --card-bg: #141414;  /* Slightly lighter for contrast */
-            --card-border: #30363d;
+            /* 60% Black (Dominant) */
+            --bg-color: #0a0a0a;
+            --card-bg: #141414;
+            
+            /* 30% White (Secondary) */
             --text-main: #f5f5f5;
             --text-muted: #a3a3a3;
+            
+            /* 10% Orange (Accent) */
             --accent: #ff6b00;
             --accent-hover: #e65c00;
-            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * {
@@ -29,7 +33,7 @@
         }
 
         body {
-            font-family: 'Inter', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.7;
@@ -37,78 +41,191 @@
             overflow-x: hidden;
         }
 
-        /* Subtle background glow effect */
-        body::before {
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ====================== HERO SECTION (AI Pattern Style) ====================== */
+        .hero-section {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 100px 0 60px 0;
+        }
+
+        /* The Giant Background Lettering */
+        .bg-text {
+            position: absolute;
+            top: 50%;
+            right: -10%;
+            transform: translateY(-50%);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 25vw;
+            font-weight: 900;
+            line-height: 0.85;
+            text-transform: uppercase;
+            /* Creates the transparent stroke effect */
+            color: transparent;
+            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.03);
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+
+        /* Glowing ambient light behind the text */
+        .hero-section::after {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 173, 181, 0.03) 0%, transparent 50%);
-            z-index: -1;
+            top: 20%;
+            right: 10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 107, 0, 0.15) 0%, transparent 70%);
+            filter: blur(60px);
+            z-index: 0;
             pointer-events: none;
         }
 
-        .container {
-            max-width: 1100px; /* Slightly wider for modern displays */
-            margin: 0 auto;
-            padding: 60px 20px;
+        .hero-content {
+            position: relative;
+            z-index: 1; /* Keeps content above the background text */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            width: 100%;
         }
 
-        /* Hero Header Section */
-        header {
-            text-align: center;
-            margin-bottom: 80px;
-            animation: fadeInDown 0.8s ease-out;
+        .hero-text {
+            flex: 1;
+            max-width: 600px;
+            animation: fadeInLeft 1s ease-out;
         }
 
-        header h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -1px;
+        /* Upgraded 3D Orange Header */
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3.5rem, 8vw, 5.5rem);
+            color: #ffffff;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-shadow: 
+                1px 1px 0 #ff6b00,
+                2px 2px 0 #e65c00,
+                3px 3px 0 #cc5200,
+                4px 4px 0 #b34700,
+                8px 8px 15px rgba(255, 107, 0, 0.4),
+                12px 12px 20px rgba(0, 0, 0, 0.8);
+            transition: transform 0.3s ease;
         }
 
-        header p.subtitle {
-            font-size: 1.1rem;
+        .subtitle {
+            font-size: 1.2rem;
             color: var(--accent);
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             margin-bottom: 20px;
         }
 
-        header .bio {
-            max-width: 650px;
-            margin: 0 auto;
+        .bio {
             color: var(--text-muted);
             font-size: 1.15rem;
-            line-height: 1.8;
+            margin-bottom: 40px;
         }
 
-        /* Portfolio Grid Layout */
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 40px;
+        /* Your Portrait Area */
+        .hero-image-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .portrait-placeholder {
+            width: 100%;
+            max-width: 450px;
+            aspect-ratio: 4/5;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Instructions inside the portrait box (remove when you add your image) */
+        .portrait-placeholder::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 2px dashed rgba(255, 107, 0, 0.3);
+            border-radius: 20px;
+            margin: 15px;
+        }
+
+        /* Buttons */
+        .btn {
             display: inline-block;
+            padding: 16px 36px;
+            background-color: var(--accent);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition);
+            border: 1px solid var(--accent);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--accent);
+            box-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* ====================== PORTFOLIO SECTION ====================== */
+        .portfolio-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            margin-bottom: 60px;
             color: var(--text-main);
             position: relative;
+            display: inline-block;
+            text-transform: uppercase;
         }
 
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: -10px;
             left: 0;
-            width: 40px;
-            height: 3px;
-            background-color: var(--accent);
-            border-radius: 2px;
-            transition: width 0.3s ease;
+            width: 60px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), #ff8c33);
+            transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .section-title:hover::after {
@@ -117,212 +234,233 @@
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Fixed the 1max typo */
-            gap: 30px;
-            margin-bottom: 80px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
         }
 
         /* Project Cards */
         .project-card {
             background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
+            border-radius: 16px;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: var(--transition);
             display: flex;
             flex-direction: column;
-            animation: fadeInUp 0.8s ease-out backwards;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 1;
         }
 
-        /* Staggered animation delays for cards */
-        .project-card:nth-child(1) { animation-delay: 0.2s; }
-        .project-card:nth-child(2) { animation-delay: 0.4s; }
-        .project-card:nth-child(3) { animation-delay: 0.6s; }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.03), transparent);
+            transform: skewX(-25deg);
+            transition: left 0.7s ease;
+            z-index: 2;
+            pointer-events: none;
+        }
 
         .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            border-color: var(--accent);
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--accent);
         }
 
+        .project-card:hover::before { left: 200%; }
+
         .project-image-container {
+            position: relative;
             width: 100%;
-            height: 200px;
+            height: 240px;
             overflow: hidden;
         }
 
-        .project-image, .project-fallback-img {
+        .project-fallback-img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .project-card:hover .project-image, 
-        .project-card:hover .project-fallback-img {
-            transform: scale(1.05);
-        }
-
-        .project-fallback-img {
-            background: linear-gradient(135deg, #2b323c 0%, #161b22 100%);
+            background: linear-gradient(135deg, #1f1f1f 0%, #141414 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
+            font-size: 1.2rem;
             font-weight: 600;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            transition: transform 0.7s ease;
+        }
+
+        .project-card:hover .project-fallback-img {
+            transform: scale(1.08) rotate(1deg);
         }
 
         .project-info {
-            padding: 25px;
+            padding: 35px 30px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
         }
 
         .project-info h3 {
-            margin-bottom: 12px;
-            font-size: 1.4rem;
-            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
         }
 
-        .project-info p.description {
+        .project-card:hover .project-info h3 { color: var(--accent); }
+
+        .project-info p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             flex-grow: 1;
         }
 
-        /* Upgraded Tags */
+        /* Glassmorphism Tags */
         .project-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 25px;
         }
 
         .project-tag {
-            background-color: rgba(0, 173, 181, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            font-size: 0.75rem;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-tag {
+            border-color: var(--accent);
+            background: rgba(255, 107, 0, 0.1);
             color: var(--accent);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid rgba(0, 173, 181, 0.2);
         }
 
         .project-link {
-            color: var(--text-main);
+            color: var(--accent);
             text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 700;
+            font-size: 1rem;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: var(--transition);
             align-self: flex-start;
+            transition: var(--transition);
         }
 
-        .project-link::after {
-            content: '→';
-            transition: transform 0.3s ease;
-        }
+        .project-link::after { content: '→'; transition: transform 0.3s ease; }
+        .project-link:hover { gap: 12px; }
+        .project-link:hover::after { transform: translateX(6px); }
 
-        .project-link:hover {
-            color: var(--accent);
-        }
-
-        .project-link:hover::after {
-            transform: translateX(5px);
-        }
-
-        /* Contact Section */
+        /* ====================== FOOTER ====================== */
         footer {
             text-align: center;
-            padding-top: 60px;
-            border-top: 1px solid var(--card-border);
-            animation: fadeInUp 1s ease-out backwards;
-            animation-delay: 0.8s;
+            padding: 80px 0 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 60px;
         }
 
         .contact-links {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
+            gap: 20px;
+            margin-top: 30px;
             flex-wrap: wrap;
         }
 
         .contact-btn {
-            display: inline-block;
-            padding: 12px 28px;
-            background-color: var(--card-bg);
+            padding: 12px 30px;
+            background: transparent;
             color: var(--text-main);
             text-decoration: none;
-            border: 1px solid var(--card-border);
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: var(--transition);
         }
 
         .contact-btn:hover {
-            background-color: var(--accent);
             border-color: var(--accent);
-            color: #ffffff;
+            color: var(--accent);
+            background: rgba(255, 107, 0, 0.05);
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 173, 181, 0.2);
         }
 
-        /* Keyframe Animations */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* ====================== ANIMATIONS & RESPONSIVE ====================== */
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
-        /* Responsive Tweaks */
-        @media (max-width: 768px) {
-            header h1 { font-size: 2.5rem; }
-            header p.subtitle { font-size: 0.95rem; }
-            .section-title { font-size: 1.6rem; }
-            .container { padding: 40px 15px; }
+        @media (max-width: 900px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-image-wrapper { justify-content: center; width: 100%; margin-top: 40px; }
+            .bg-text { font-size: 35vw; right: 50%; transform: translate(50%, -50%); text-align: center; }
+            .hero-text { align-items: center; display: flex; flex-direction: column; }
         }
     </style>
 </head>
 <body>
 
+    <div class="bg-text">DEANE<br>CREATOR</div>
+
     <div class="container">
         
-        <header>
-            <h1>Hi, I'm Deane</h1>
-            <p class="subtitle">Digital Creator & Your Virtual Assistant</p>
-            <p class="bio">Welcome to my space. I specialize in video editing, brand identity, and data management. Explore my latest projects below to see how I bring ideas to life.</p>
+        <header class="hero-section">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <p class="subtitle">Digital Creator & Virtual Assistant</p>
+                    <h1>Hi, I'm Deane</h1>
+                    <p class="bio">I specialize in high-energy video editing, premium brand identity, and scalable data management. I build digital assets that demand attention.</p>
+                    <a href="#work" class="btn">Explore My Work</a>
+                </div>
+
+                <div class="hero-image-wrapper">
+                    <div class="portrait-placeholder">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px; color: var(--accent);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                        <span>INSERT PORTRAIT HERE</span>
+                    </div>
+                </div>
+            </div>
         </header>
 
-        <main>
+        <main id="work" class="portfolio-section">
             <h2 class="section-title">Featured Work</h2>
             <div class="portfolio-grid">
                 
                 <div class="project-card">
                     <div class="project-image-container">
-                        <img src="my-project-banner.jpg" alt="Creative Video Production" class="project-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-                        <div class="project-fallback-img" style="display: none;">VIDEO PRODUCTION</div>
+                        <div class="project-fallback-img">VIDEO PRODUCTION</div>
                     </div>
                     <div class="project-info">
                         <h3>Creative Video Production</h3>
-                        <p class="description">High-energy video edits with custom keyframes, perfect timing, color grading, and engaging storytelling.</p>
-                        
+                        <p>High-energy video edits with custom keyframes, perfect timing, color grading, and engaging storytelling.</p>
                         <div class="project-tags">
                             <span class="project-tag">Video Editing</span>
                             <span class="project-tag">After Effects</span>
-                            <span class="project-tag">Premiere Pro</span>
+                            <span class="project-tag">Premiere</span>
                         </div>
-                        
                         <a href="#" class="project-link">Watch Project</a>
                     </div>
                 </div>
@@ -333,32 +471,28 @@
                     </div>
                     <div class="project-info">
                         <h3>Brand Identity & Logo Design</h3>
-                        <p class="description">Complete brand concepts, logo design, color systems, and visual assets for digital platforms.</p>
-                        
+                        <p>Complete brand concepts, logo design, color systems, and visual assets built for modern digital platforms.</p>
                         <div class="project-tags">
                             <span class="project-tag">Branding</span>
-                            <span class="project-tag">Logo Design</span>
+                            <span class="project-tag">Design</span>
                             <span class="project-tag">Illustration</span>
                         </div>
-                        
                         <a href="#" class="project-link">View Assets</a>
                     </div>
                 </div>
 
                 <div class="project-card">
                     <div class="project-image-container">
-                        <div class="project-fallback-img">DATA MANAGEMENT</div>
+                        <div class="project-fallback-img">DATA SYSTEMS</div>
                     </div>
                     <div class="project-info">
-                        <h3>Data Management & Automation</h3>
-                        <p class="description">Building efficient systems for data organization, automation workflows, and clean dashboard solutions.</p>
-                        
+                        <h3>Data Management & Auto</h3>
+                        <p>Building efficient systems for data organization, automation workflows, and clean dashboard solutions.</p>
                         <div class="project-tags">
                             <span class="project-tag">Data Analysis</span>
                             <span class="project-tag">Automation</span>
                             <span class="project-tag">Notion</span>
                         </div>
-                        
                         <a href="#" class="project-link">View Repository</a>
                     </div>
                 </div>
@@ -367,7 +501,7 @@
         </main>
 
         <footer>
-            <h2 class="section-title">Let's Connect</h2>
+            <h2 class="section-title" style="font-size: 2rem;">Let's Connect</h2>
             <div class="contact-links">
                 <a href="mailto:magdaraogdeane0@gmail.com" class="contact-btn">Email Me</a>
                 <a href="https://www.tiktok.com" target="_blank" rel="noopener noreferrer" class="contact-btn">TikTok</a> 
@@ -376,6 +510,5 @@
         </footer>
 
     </div>
-
 </body>
 </html>
