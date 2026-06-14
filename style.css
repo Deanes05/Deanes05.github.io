@@ -1,203 +1,136 @@
-/* ====================== THEME VARIABLES (60-30-10) ====================== */
-:root {
-    --bg-main: #ffffff;         /* 60% White Canvas */
-    --card-bg: #f5f5f7;         /* Soft Apple-style gray */
-    --text-main: #1d1d1f;       /* 30% Deep Charcoal */
-    --text-muted: #86868b;
-    --border-light: #e5e5ea;
-    --accent: #ff6600;          /* 10% Vibrant Orange */
-    --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
-}
-
+/* Base styling for the "desk" background */
 body {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-}
-
-/* ====================== MAIN LAYOUT ====================== */
-.container-block {
-    background-color: var(--card-bg);
-    border-radius: 60px;
-    padding: 80px 40px;
-    margin: 40px auto;
-    max-width: 1000px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
-}
-
-.minimal-divider {
-    border: none;
-    height: 1px;
-    background-color: var(--border-light);
-    margin: 60px 0;
-    width: 100%;
-}
-
-/* ====================== HERO SECTION (CENTERED) ====================== */
-.hero-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.portrait-container {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-bottom: 24px;
-    background-color: var(--border-light);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.portrait-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-h1 {
-    font-weight: 800;
-    font-size: 3rem;
-    letter-spacing: -0.04em;
-    margin: 0 0 16px 0;
-}
-
-.bio {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    margin-bottom: 32px;
-}
-
-/* ====================== BUTTONS & TAGS ====================== */
-.btn-primary {
-    background-color: var(--text-main);
-    color: var(--bg-main);
-    text-decoration: none;
-    padding: 14px 32px;
-    border-radius: 40px;
-    font-weight: 600;
-    transition: all 0.3s var(--ease-smooth);
-    display: inline-block;
-}
-
-.btn-primary:hover {
-    background-color: var(--accent); /* Orange Pop! */
-    transform: translateY(-2px);
-}
-
-.project-tag {
-    background: var(--bg-main); 
-    border: 1px solid var(--border-light); 
-    color: var(--text-main);
-    text-decoration: none;
-    font-size: 0.9rem;
-    padding: 12px 24px;
-    border-radius: 40px;
-    font-weight: 600;
-    transition: all 0.3s var(--ease-smooth);
-}
-
-.project-tag:hover {
-    border-color: var(--accent); 
-    color: var(--accent);
-}
-
-/* ====================== PORTFOLIO GRID ====================== */
-.section-title {
-    text-align: center;
-    font-size: 1.5rem;
-    margin-bottom: 40px;
-}
-
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 30px; 
-}
-
-.project-card {
-    background-color: var(--bg-main);
-    border-radius: 24px; 
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
-    transition: transform 0.4s var(--ease-smooth), box-shadow 0.4s var(--ease-smooth);
-}
-
-.project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-}
-
-.project-image-container {
-    width: 100%;
-    height: 200px; 
-    background-color: var(--border-light);
-    overflow: hidden;
-}
-
-.project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    transition: transform 0.8s var(--ease-smooth);
-}
-
-.project-card:hover .project-img {
-    transform: scale(1.05);
-}
-
-.project-info {
-    padding: 24px;
-}
-
-.project-info h3 {
-    margin: 0 0 8px 0;
-    font-size: 1.1rem;
-}
-
-.project-info p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-bottom: 20px;
-}
-
-.project-link {
-    color: var(--text-main);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-}
-
-.project-link:hover {
-    color: var(--accent);
-}
-
-/* ====================== FOOTER ====================== */
-.site-footer {
-    text-align: center;
-    padding: 0 20px 80px 20px;
-}
-
-.site-footer h2 {
-    font-size: 2rem;
-    margin-bottom: 30px;
-}
-
-.contact-links {
+    background-color: #1a1a1a;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* The main wrapper that sets the 3D perspective */
+.document-wrapper {
+    position: relative;
+    width: 700px;
+    height: 900px;
+    perspective: 2000px; /* This is crucial: it gives the 3D flip its depth */
+}
+
+/* The persistent paperclip on the top left */
+.paperclip {
+    position: absolute;
+    top: -30px;
+    left: 30px;
+    font-size: 80px;
+    z-index: 100;
+    transform: rotate(15deg);
+    pointer-events: none; /* Prevents it from blocking clicks */
+    text-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+}
+
+/* The page underneath that gets revealed */
+.page-bottom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/cream-paper.png'), #fdfdfa;
+    box-shadow: 8px 8px 25px rgba(0,0,0,0.6);
+    border: 1px solid #ddd;
+    padding: 50px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* The actual sheet of paper that flips */
+.flipper-sheet {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d; /* Tells the browser the children exist in 3D space */
+    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transform-origin: left center; /* Creates the "hinge" on the left side */
+    z-index: 2;
+}
+
+/* Triggered by JS to flip the page */
+.flipper-sheet.is-flipped {
+    transform: rotateY(-180deg);
+}
+
+/* Shared styles for both sides of the flipping paper */
+.face {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Hides the reverse, mirrored text side of the div */
+    background: url('https://www.transparenttextures.com/patterns/cream-paper.png'), #fdfdfa;
+    border: 1px solid #ddd;
+    padding: 60px;
+    box-sizing: border-box;
+    box-shadow: 3px 3px 15px rgba(0,0,0,0.2);
+}
+
+/* The back face needs to be pre-rotated to act as the back */
+.face.back {
+    transform: rotateY(180deg);
+}
+
+/* --- Content Styling --- */
+.header {
+    display: flex;
+    gap: 20px;
+    border-bottom: 2px dashed #ccc;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.photo-placeholder {
+    width: 150px;
+    height: 180px;
+    background-color: #333;
+    border: 10px solid #e2e873; 
+}
+
+h1 {
+    font-size: 3rem;
+    margin: 0 0 10px 0;
+}
+
+.highlight-title {
+    background-color: #f7eb54;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 3px;
+}
+
+.btn-flip {
+    background-color: #ff5e5e;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 30px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    transition: transform 0.1s;
+}
+
+.btn-flip:active {
+    transform: scale(0.95);
+}
+
+.handwritten {
+    font-family: 'Comic Sans MS', cursive;
+    color: #d14141;
+    font-size: 1.2rem;
+    line-height: 1.5;
 }
