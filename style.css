@@ -1,136 +1,104 @@
-/* Base styling for the "desk" background */
+/* Import a modern font for a premium look */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap');
+
+:root {
+  /* 60-30-10 Rule: Orange (60), Dark (30), White (10) */
+  --primary-orange: #ff8c00;
+  --bg-dark: #1a1a1a;
+  --accent-white: #ffffff;
+  
+  --bg-color: var(--primary-orange);
+  --text-main: var(--bg-dark);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+body.night-mode {
+  --bg-color: var(--bg-dark);
+  --text-main: var(--accent-white);
+  --glass-bg: rgba(0, 0, 0, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
 body {
-    background-color: #1a1a1a;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  transition: all 0.5s ease;
+  overflow-x: hidden;
 }
 
-/* The main wrapper that sets the 3D perspective */
-.document-wrapper {
-    position: relative;
-    width: 700px;
-    height: 900px;
-    perspective: 2000px; /* This is crucial: it gives the 3D flip its depth */
+/* Glassmorphism Effect */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
 }
 
-/* The persistent paperclip on the top left */
-.paperclip {
-    position: absolute;
-    top: -30px;
-    left: 30px;
-    font-size: 80px;
-    z-index: 100;
-    transform: rotate(15deg);
-    pointer-events: none; /* Prevents it from blocking clicks */
-    text-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+/* Hero Section Enhancement */
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 2rem;
 }
 
-/* The page underneath that gets revealed */
-.page-bottom {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/cream-paper.png'), #fdfdfa;
-    box-shadow: 8px 8px 25px rgba(0,0,0,0.6);
-    border: 1px solid #ddd;
-    padding: 50px;
-    box-sizing: border-box;
-    z-index: 1;
+.hero-image-wrapper {
+  position: relative;
+  transition: transform 0.3s ease;
 }
 
-/* The actual sheet of paper that flips */
-.flipper-sheet {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d; /* Tells the browser the children exist in 3D space */
-    transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
-    transform-origin: left center; /* Creates the "hinge" on the left side */
-    z-index: 2;
+/* Floating "Letter Behind" Effect */
+.letter-behind {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  font-size: 10rem;
+  font-weight: 800;
+  color: var(--accent-white);
+  z-index: -1;
+  opacity: 0.3;
 }
 
-/* Triggered by JS to flip the page */
-.flipper-sheet.is-flipped {
-    transform: rotateY(-180deg);
+/* Hover-Zoom Glass Squares */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 4rem 10%;
 }
 
-/* Shared styles for both sides of the flipping paper */
-.face {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden; /* Hides the reverse, mirrored text side of the div */
-    background: url('https://www.transparenttextures.com/patterns/cream-paper.png'), #fdfdfa;
-    border: 1px solid #ddd;
-    padding: 60px;
-    box-sizing: border-box;
-    box-shadow: 3px 3px 15px rgba(0,0,0,0.2);
+.skill-card {
+  padding: 2rem;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* The back face needs to be pre-rotated to act as the back */
-.face.back {
-    transform: rotateY(180deg);
+.skill-card:hover {
+  transform: translateY(-15px) scale(1.02);
+  border-color: var(--accent-white);
 }
 
-/* --- Content Styling --- */
-.header {
-    display: flex;
-    gap: 20px;
-    border-bottom: 2px dashed #ccc;
-    padding-bottom: 20px;
-    margin-bottom: 30px;
+/* Footer Links */
+footer {
+  text-align: center;
+  padding: 3rem;
+  border-top: 1px solid var(--glass-border);
 }
 
-.photo-placeholder {
-    width: 150px;
-    height: 180px;
-    background-color: #333;
-    border: 10px solid #e2e873; 
-}
-
-h1 {
-    font-size: 3rem;
-    margin: 0 0 10px 0;
-}
-
-.highlight-title {
-    background-color: #f7eb54;
-    display: inline-block;
-    padding: 5px 15px;
-    border-radius: 3px;
-}
-
-.btn-flip {
-    background-color: #ff5e5e;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 30px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    transition: transform 0.1s;
-}
-
-.btn-flip:active {
-    transform: scale(0.95);
-}
-
-.handwritten {
-    font-family: 'Comic Sans MS', cursive;
-    color: #d14141;
-    font-size: 1.2rem;
-    line-height: 1.5;
+.footer-link {
+  margin: 0 1rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-transform: uppercase;
 }
