@@ -1,95 +1,204 @@
 <!DOCTYPE html>
-<html lang="en" style="scroll-behavior: smooth;">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Deane - Digital Creator & Virtual Assistant">
-    <title>Deane | Digital Creator</title>
-    
-    <!-- Google Fonts: Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Interactive Paperclip Resume</title>
+    <style>
+        /* Base styling for the "desk" background */
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    <!-- Linking your external CSS file -->
-    <link rel="stylesheet" href="style.css">
+        /* The main wrapper that sets the 3D perspective */
+        .document-wrapper {
+            position: relative;
+            width: 700px;
+            height: 900px;
+            perspective: 2000px; /* Gives the 3D flip depth */
+        }
+
+        /* The persistent paperclip on the top left */
+        .paperclip {
+            position: absolute;
+            top: -30px;
+            left: 30px;
+            font-size: 80px;
+            z-index: 100;
+            transform: rotate(15deg);
+            pointer-events: none; /* Prevents it from blocking clicks */
+            text-shadow: 3px 3px 5px rgba(0,0,0,0.5);
+        }
+
+        /* The page underneath that gets revealed */
+        .page-bottom {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/cream-paper.png'), #fdfdfa;
+            box-shadow: 8px 8px 25px rgba(0,0,0,0.6);
+            border: 1px solid #ddd;
+            padding: 50px;
+            box-sizing: border-box;
+            z-index: 1;
+        }
+
+        /* The actual sheet of paper that flips */
+        .flipper-sheet {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transform-origin: left center; /* Hinges on the left side */
+            z-index: 2;
+        }
+
+        /* Triggered by JS to flip the page */
+        .flipper-sheet.is-flipped {
+            transform: rotateY(-180deg);
+        }
+
+        /* Shared styles for both sides of the flipping paper */
+        .face {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Hides the reverse side of the div */
+            background: url('https://www.transparenttextures.com/patterns/cream-paper.png'), #fdfdfa;
+            border: 1px solid #ddd;
+            padding: 60px;
+            box-sizing: border-box;
+            box-shadow: 3px 3px 15px rgba(0,0,0,0.2);
+        }
+
+        /* The back face needs to be rotated by default to act as the back */
+        .face.back {
+            transform: rotateY(180deg);
+        }
+
+        /* --- Styling the Content to mimic the image --- */
+        .header {
+            display: flex;
+            gap: 20px;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .photo-placeholder {
+            width: 150px;
+            height: 180px;
+            background-color: #333;
+            border: 10px solid #e2e873; /* Yellow tape effect */
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin: 0 0 10px 0;
+        }
+
+        .highlight-title {
+            background-color: #f7eb54;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 3px;
+        }
+
+        .btn-flip {
+            background-color: #ff5e5e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 30px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.1s;
+        }
+
+        .btn-flip:active {
+            transform: scale(0.95);
+        }
+
+        /* Handwritten font styling for the note */
+        .handwritten {
+            font-family: 'Comic Sans MS', cursive;
+            color: #d14141;
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Main White Canvas Block -->
-    <div class="container-block">
-        
-        <!-- Center-Aligned Hero Section -->
-        <header class="hero-section">
-            <div class="portrait-container">
-                <img src="samplegg.png" alt="Deane Portrait" class="portrait-img">
-            </div>
-            
-            <h1>Hi, I'm Deane</h1>
-            <p class="bio">Digital Creator & Virtual Assistant specializing in high-energy video editing, premium brand identity, and scalable data management.</p>
-            
-            <a href="#work" class="btn-primary">Explore My Work</a>
-        </header>
+    <div class="document-wrapper">
+        <div class="paperclip">📎</div>
 
-        <!-- Spacer Divider -->
-        <hr class="minimal-divider">
+        <div class="page-bottom">
+            <h2 class="highlight-title">Work Experiences</h2>
+            <p><strong>Sep 2022 - Present</strong><br>Motion Graphic & UI Designer</p>
+            <p><strong>Jun 2022 - Aug 2022</strong><br>Motion Graphic & UI Designer - Internship</p>
+            <button class="btn-flip" onclick="unflipPage()">Turn Back</button>
+        </div>
 
-        <!-- Portfolio Grid Section -->
-        <section id="work" class="portfolio-section">
-            <h2 class="section-title">Featured Work</h2>
+        <div class="flipper-sheet" id="pageFlipper">
             
-            <div class="portfolio-grid">
+            <div class="face front">
+                <div class="header">
+                    <div class="photo-placeholder"></div>
+                    <div>
+                        <h1>Aravindh A</h1>
+                        <p>I do creative motion graphics from scratch designing to animation assets.</p>
+                        <ul style="list-style-type: none; padding: 0;">
+                            <li><strong>DOB:</strong> 23.01.2001</li>
+                            <li><strong>LOC:</strong> Thanjavur</li>
+                        </ul>
+                    </div>
+                </div>
                 
-                <!-- Project 1 -->
-                <article class="project-card">
-                    <div class="project-image-container">
-                        <img src="my-project-banner.jpg" alt="Video Production" class="project-img">
-                    </div>
-                    <div class="project-info">
-                        <h3>Creative Video Production</h3>
-                        <p>High-energy video edits with custom keyframes, perfect timing, and engaging storytelling.</p>
-                        <a href="watchproject.html" class="project-link">Watch Project</a>
-                    </div>
-                </article>
+                <div class="handwritten">
+                    Please don't hesitate to reach me if this resume doesn't provide enough clarification!
+                </div>
 
-                <!-- Project 2 -->
-                <article class="project-card">
-                    <div class="project-image-container">
-                        <img src="brand-banner.jpg" alt="Brand Identity" class="project-img">
-                    </div>
-                    <div class="project-info">
-                        <h3>Brand Identity & Logo</h3>
-                        <p>Complete brand concepts, color systems, and visual assets built for modern platforms.</p>
-                        <a href="#" class="project-link">View Assets</a>
-                    </div>
-                </article>
-
-                <!-- Project 3 -->
-                <article class="project-card">
-                    <div class="project-image-container">
-                        <img src="data-banner.jpg" alt="Data Systems" class="project-img">
-                    </div>
-                    <div class="project-info">
-                        <h3>Data Management</h3>
-                        <p>Building efficient systems for data organization, automation workflows, and clean dashboards.</p>
-                        <a href="#" class="project-link">View Repository</a>
-                    </div>
-                </article>
-
+                <button class="btn-flip" onclick="flipPage()">Click to Flip Page</button>
             </div>
-        </section>
 
-    </div> <!-- End Container Block -->
+            <div class="face back">
+                <h2>Page 2 / Notes</h2>
+                <p>This is the physical back side of the cover page.</p>
+            </div>
 
-    <!-- Minimalist Footer -->
-    <footer class="site-footer">
-        <h2>Tell me about your next project</h2>
-        <nav class="contact-links">
-            <a href="mailto:magdaraogdeane0@gmail.com" class="btn-primary">Email Me</a>
-            <a href="https://www.tiktok.com" target="_blank" class="project-tag">TikTok</a> 
-            <a href="https://www.youtube.com" target="_blank" class="project-tag">YouTube</a>
-        </nav>
-    </footer>
+        </div>
+    </div>
+
+    <script>
+        const flipper = document.getElementById('pageFlipper');
+
+        function flipPage() {
+            // Adds the CSS class that triggers the 180-degree rotation
+            flipper.classList.add('is-flipped');
+        }
+
+        function unflipPage() {
+            // Removes the class to rotate it back to 0 degrees
+            flipper.classList.remove('is-flipped');
+        }
+    </script>
 
 </body>
 </html>
