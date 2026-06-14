@@ -1,347 +1,203 @@
-/* ====================== THEME VARIABLES (60-30-10 Rule) ====================== */
+/* ====================== THEME VARIABLES (60-30-10) ====================== */
 :root {
-    /* 60% Dominant (Deep Rich Blacks) */
-    --bg-main: #0a0a0a;
-    --card-bg: #141414;
-    
-    /* 30% Secondary (Whites/Grays for Text and Borders) */
-    --text-main: #f8f9fa;
-    --text-muted: #a0aec0;
-    --border-light: rgba(255, 255, 255, 0.08);
-    
-    /* 10% Accent (Vibrant Orange) */
-    --accent: #ff6b00;
-    --accent-glow: rgba(255, 107, 0, 0.4);
-    --accent-dim: rgba(255, 107, 0, 0.1);
-
-    /* Easing Variables for consistency */
-    --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
-    --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --bg-main: #ffffff;         /* 60% White Canvas */
+    --card-bg: #f5f5f7;         /* Soft Apple-style gray */
+    --text-main: #1d1d1f;       /* 30% Deep Charcoal */
+    --text-muted: #86868b;
+    --border-light: #e5e5ea;
+    --accent: #ff6600;          /* 10% Vibrant Orange */
+    --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* ====================== TYPOGRAPHY ====================== */
-h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: clamp(3rem, 8vw, 5rem);
-    color: var(--text-main); /* Changed to white so the orange shadow pops more */
-    letter-spacing: -1px;
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Inter', sans-serif;
     margin: 0;
-    /* 3D Shadow refined for a cleaner extrusion */
-    text-shadow: 
-        1px 1px 0 #cc5500,
-        2px 2px 0 #b34b00,
-        3px 3px 0 #994000,
-        4px 4px 0 #803600,
-        8px 8px 15px var(--accent-glow), 
-        12px 12px 20px rgba(0, 0, 0, 0.8);
-    transition: transform 0.4s var(--ease-bounce), text-shadow 0.4s ease;
-    /* Hardware acceleration for smooth scaling */
-    will-change: transform; 
+    padding: 0;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
 }
 
-h1:hover {
-    transform: translateY(-4px) scale(1.02);
-    text-shadow: 
-        1px 1px 0 #ff7a1a,
-        2px 2px 0 #e66000,
-        3px 3px 0 #cc5500,
-        4px 4px 0 #b34b00,
-        10px 10px 25px var(--accent-glow), 
-        15px 15px 25px rgba(0, 0, 0, 0.9);
+/* ====================== MAIN LAYOUT ====================== */
+.container-block {
+    background-color: var(--card-bg);
+    border-radius: 60px;
+    padding: 80px 40px;
+    margin: 40px auto;
+    max-width: 1000px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.02);
 }
 
-/* ====================== PORTRAIT INTEGRATION ====================== */
-.portrait-container {
+.minimal-divider {
+    border: none;
+    height: 1px;
+    background-color: var(--border-light);
+    margin: 60px 0;
     width: 100%;
-    max-width: 450px;
-    aspect-ratio: 4/5;
-    position: relative;
-    border-radius: 24px; /* Slightly rounder, modern feel */
-    overflow: hidden;
-    /* Subtle ambient glow behind the portrait */
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border-light);
-    animation: float 6s ease-in-out infinite; /* New: Idle floating animation */
 }
 
-/* Keyframe for subtle floating */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
+/* ====================== HERO SECTION (CENTERED) ====================== */
+.hero-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.portrait-container {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 24px;
+    background-color: var(--border-light);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
 .portrait-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    position: relative;
-    z-index: 1;
-    filter: contrast(1.15) brightness(0.9) grayscale(20%);
-    transition: transform 0.8s var(--ease-apple), filter 0.8s ease;
-    will-change: transform, filter;
 }
 
-/* The Orange Cinematic Overlay */
-.portrait-container::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 0%, var(--accent-dim) 50%, rgba(255, 107, 0, 0.4) 100%);
-    mix-blend-mode: color-burn; /* Changed to color-burn for richer, deeper contrast */
-    z-index: 2;
-    pointer-events: none;
-    transition: opacity 0.6s ease;
-}
-
-/* Edge Fading (Vignette) */
-.portrait-container::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    box-shadow: inset 0 0 60px 15px var(--bg-main); 
-    z-index: 3;
-    pointer-events: none;
-}
-
-.portrait-container:hover .portrait-img {
-    transform: scale(1.06); 
-    filter: contrast(1.05) brightness(1) grayscale(0%); 
-}
-
-.portrait-container:hover::after {
-    opacity: 0; /* Fully reveals the natural image on hover */
-}
-
-/* ====================== PORTFOLIO SECTION ====================== */
-.section-title {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
+h1 {
     font-weight: 800;
-    margin-bottom: 60px;
-    color: var(--text-main);
-    position: relative;
+    font-size: 3rem;
+    letter-spacing: -0.04em;
+    margin: 0 0 16px 0;
+}
+
+.bio {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 32px;
+}
+
+/* ====================== BUTTONS & TAGS ====================== */
+.btn-primary {
+    background-color: var(--text-main);
+    color: var(--bg-main);
+    text-decoration: none;
+    padding: 14px 32px;
+    border-radius: 40px;
+    font-weight: 600;
+    transition: all 0.3s var(--ease-smooth);
     display: inline-block;
-    letter-spacing: -0.5px;
 }
 
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 30px;
-    height: 4px;
-    background: var(--accent); 
-    border-radius: 4px;
-    transition: width 0.5s var(--ease-bounce);
+.btn-primary:hover {
+    background-color: var(--accent); /* Orange Pop! */
+    transform: translateY(-2px);
 }
 
-.section-title:hover::after {
-    width: 100%; 
-    box-shadow: 0 0 10px var(--accent-glow); /* Glows when expanded */
+.project-tag {
+    background: var(--bg-main); 
+    border: 1px solid var(--border-light); 
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 12px 24px;
+    border-radius: 40px;
+    font-weight: 600;
+    transition: all 0.3s var(--ease-smooth);
+}
+
+.project-tag:hover {
+    border-color: var(--accent); 
+    color: var(--accent);
 }
 
 /* ====================== PORTFOLIO GRID ====================== */
+.section-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+}
+
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 40px; 
-    margin-bottom: 80px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px; 
 }
 
-/* ====================== PROJECT CARD ====================== */
 .project-card {
-    background-color: var(--card-bg);
+    background-color: var(--bg-main);
     border-radius: 24px; 
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    /* Replaced 'all' with specific properties for 60fps performance */
-    transition: transform 0.5s var(--ease-apple), box-shadow 0.5s var(--ease-apple), border-color 0.5s ease;
     display: flex;
     flex-direction: column;
-    height: 100%;
-    position: relative;
-    border: 1px solid var(--border-light);
-    z-index: 1;
-    will-change: transform;
-}
-
-/* The Sweep Shine Effect (Refined to look like glass reflection) */
-.project-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -150%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent 0%,
-        rgba(255, 255, 255, 0.03) 40%,
-        rgba(255, 255, 255, 0.1) 50%,
-        rgba(255, 255, 255, 0.03) 60%,
-        transparent 100%
-    );
-    transition: left 0.8s ease;
-    z-index: 4;
-    pointer-events: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: transform 0.4s var(--ease-smooth), box-shadow 0.4s var(--ease-smooth);
 }
 
 .project-card:hover {
-    transform: translateY(-12px) scale(1.01);
-    border-color: rgba(255, 107, 0, 0.5);
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.6),
-        0 0 40px var(--accent-dim); /* Soft orange aura */
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
-.project-card:hover::before {
-    left: 150%; 
-}
-
-/* Image Container */
 .project-image-container {
-    position: relative;
     width: 100%;
-    height: 240px; 
+    height: 200px; 
+    background-color: var(--border-light);
     overflow: hidden;
-    border-bottom: 1px solid var(--border-light);
 }
 
-.project-image {
+.project-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s var(--ease-apple);
-    will-change: transform;
+    object-fit: cover; 
+    transition: transform 0.8s var(--ease-smooth);
 }
 
-.project-card:hover .project-image {
-    transform: scale(1.08); 
+.project-card:hover .project-img {
+    transform: scale(1.05);
 }
 
-/* Cinematic Overlay */
-.project-image-container::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent 40%, var(--card-bg) 100%);
-    opacity: 0.9; 
-    transition: opacity 0.5s ease;
-    z-index: 1;
-}
-
-.project-card:hover .project-image-container::after {
-    opacity: 0.4; 
-}
-
-/* Project Info */
 .project-info {
-    padding: 35px 30px; 
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 3;
+    padding: 24px;
 }
 
 .project-info h3 {
-    margin: 0 0 12px 0;
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--text-main);
-    line-height: 1.3;
-    transition: color 0.3s ease;
-}
-
-.project-card:hover .project-info h3 {
-    color: var(--accent); 
+    margin: 0 0 8px 0;
+    font-size: 1.1rem;
 }
 
 .project-info p {
     color: var(--text-muted);
-    font-size: 1rem;
-    line-height: 1.6; 
-    margin-bottom: 30px;
-    flex-grow: 1;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
 }
 
-/* Premium Glassmorphism Tags */
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 30px;
-}
-
-.project-tag {
-    background: rgba(255, 255, 255, 0.03); 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--border-light); 
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    padding: 6px 16px;
-    border-radius: 50px; /* Perfect pill shape */
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 0.3s var(--ease-bounce), background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-}
-
-.project-tag:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent); 
-    background: var(--accent-dim); 
-    color: var(--text-main);
-}
-
-/* Link Button */
 .project-link {
-    color: var(--text-main); /* Starts white, turns orange on hover */
+    color: var(--text-main);
     text-decoration: none;
-    font-weight: 700;
-    font-size: 1rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    align-self: flex-start;
-    padding: 10px 0;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.project-link::after {
-    content: '→';
-    color: var(--accent);
-    transition: transform 0.4s var(--ease-bounce);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
 }
 
 .project-link:hover {
     color: var(--accent);
-    text-shadow: 0 0 12px var(--accent-glow); 
 }
 
-.project-link:hover::after {
-    transform: translateX(8px);
+/* ====================== FOOTER ====================== */
+.site-footer {
+    text-align: center;
+    padding: 0 20px 80px 20px;
 }
 
-/* Accessibility Focus States */
-.project-link:focus-visible, 
-.project-card:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 6px;
-    border-radius: 24px;
+.site-footer h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
 }
 
-/* Styles for the new project image */
-.project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image fills the box without stretching */
-    transition: transform 0.8s var(--ease-apple);
-    will-change: transform;
-}
-
-/* Keeps the smooth zoom and tilt effect on hover */
-.project-card:hover .project-img {
-    transform: scale(1.08) rotate(1deg);
+.contact-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
 }
